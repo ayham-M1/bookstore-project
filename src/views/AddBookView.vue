@@ -1,3 +1,3 @@
 <template>
-  <h1>All Books</h1>
+  <h1>Add Book</h1>
 </template>
