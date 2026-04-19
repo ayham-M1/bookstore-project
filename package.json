@@ -12,7 +12,11 @@
     "lint:eslint": "eslint . --fix --cache"
   },
   "dependencies": {
+    "@nestjs/config": "^4.0.4",
+    "@nestjs/passport": "^11.0.5",
     "axios": "^1.15.0",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
     "vue": "^3.5.31",
     "vue-router": "^4.6.4"
   },
