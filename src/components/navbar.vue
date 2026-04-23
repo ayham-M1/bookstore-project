@@ -1,11 +1,19 @@
 <script setup>
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { computed } from 'vue'
 
 const router = useRouter()
+const route = useRoute()
 
-const isLoggedIn = computed(() => !!localStorage.getItem('token'))
-const isAdmin = computed(() => localStorage.getItem('role') === 'admin')
+const isLoggedIn = computed(() => {
+  route.path
+  return !!localStorage.getItem('token')
+})
+
+const isAdmin = computed(() => {
+  route.path
+  return localStorage.getItem('role') === 'admin'
+})
 
 function logout() {
   localStorage.removeItem('token')
@@ -21,14 +29,11 @@ function logout() {
     </router-link>
 
     <div class="nav-links">
-
-      <!-- Non connecté -->
       <template v-if="!isLoggedIn">
         <router-link to="/" class="nav-link">Home</router-link>
         <router-link to="/login" class="nav-link">Login</router-link>
       </template>
 
-      <!-- Utilisateur connecté -->
       <template v-else-if="!isAdmin">
         <router-link to="/" class="nav-link">Accueil</router-link>
         <router-link to="/books" class="nav-link">All-Books</router-link>
@@ -37,14 +42,12 @@ function logout() {
         <button class="nav-link red" @click="logout">Logout</button>
       </template>
 
-      <!-- Admin connecté -->
       <template v-else>
         <router-link to="/" class="nav-link">Accueil</router-link>
         <router-link to="/admin/books" class="nav-link">Books</router-link>
         <router-link to="/admin/authors" class="nav-link">Authors</router-link>
         <button class="nav-link red" @click="logout">Logout</button>
       </template>
-
     </div>
   </nav>
 </template>

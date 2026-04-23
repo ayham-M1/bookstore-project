@@ -12,12 +12,7 @@ const activeEnd = ref(null)
 onMounted(async () => {
   try {
     const res = await api.get('/books/all')
-
-    // sécurité : toujours tableau
-    books.value = Array.isArray(res.data)
-      ? res.data
-      : res.data.data || res.data.books || []
-
+    books.value = res.data.listeBooks || []
   } catch (e) {
     console.error(e)
   }

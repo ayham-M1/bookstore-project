@@ -14,10 +14,9 @@ const form = reactive({
   description: '',
   authorId: ''
 })
-
 onMounted(async () => {
   try {
-    const res = await api.get('/authors')
+    const res = await api.get('/author/all')
     authors.value = res.data
   } catch (e) {
     console.error(e)
@@ -28,7 +27,7 @@ async function submitAddBook() {
   addError.value = ''
   if (!form.title) { addError.value = 'Le titre est obligatoire.'; return }
   try {
-    await api.post('/books', { ...form })
+    await api.post('/books/add', { ...form })
     addSuccess.value = true
     Object.assign(form, { title: '', image: '', editor: '', year: new Date().getFullYear(), description: '', authorId: '' })
     setTimeout(() => addSuccess.value = false, 3000)
@@ -36,6 +35,7 @@ async function submitAddBook() {
     addError.value = "Erreur lors de l'ajout du livre."
   }
 }
+
 </script>
 
 <template>
@@ -52,7 +52,7 @@ async function submitAddBook() {
       <label>Author</label>
       <select v-model="form.authorId">
         <option value=""></option>
-        <option v-for="a in authors" :key="a.id" :value="a.id">{{ a.name }}</option>
+        <option v-for="a in authors" :key="a.id" :value="a.id">{{ a.prenom }} {{ a.nom }}</option>
       </select>
     </div>
     <div style="text-align:right;margin-top:1rem;">
